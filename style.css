@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    background-color: #f0c7c7;
+    border: 1px solid black;
+    
+
+    max-width: 400px;
+    display: grid;
+    grid-template: repeat(8, 50px) / 0.5fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+input{
+    max-width: 6rem;
+    height: 2rem;
+    padding-left: 0.5rem;
+}
+
+.heading{
+    border: 1px solid black;
+    height: 1.5rem;
+    text-align: center;
+}
+
+.day{
+    text-align: center;
+}
+
+.range{
+    justify-self: center;
+}
+
+.target{
+    grid-column: 2/3;
+    justify-self: center;
+}
+
+#target{
+    max-width: 8rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
