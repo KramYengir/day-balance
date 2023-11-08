@@ -1,81 +1,108 @@
-let monMin = document.getElementById('mon-min');
-let tueMin = document.getElementById('tue-min');
-let wedMin = document.getElementById('wed-min');
-let thuMin = document.getElementById('thu-min');
-let friMin = document.getElementById('fri-min');
-let satMin = document.getElementById('sat-min');
-let target = document.getElementById('target');
+const form = document.querySelector("form");
+const goButton = document.querySelector("button");
 
-const form = document.querySelector('form');
-const goButton = document.querySelector('button');
+let monMinInput = document.getElementById("mon-min");
+let tueMinInput = document.getElementById("tue-min");
+let wedMinInput = document.getElementById("wed-min");
+let thuMinInput = document.getElementById("thu-min");
+let friMinInput = document.getElementById("fri-min");
+let satMinInput = document.getElementById("sat-min");
+let targetInput = document.getElementById("target");
 
+let wedBase;
+let monBase;
+let tueBase;
+let thuBase;
+let friBase;
+let satBase;
 
-form.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    getRandomNumForDay();
-})
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  setBaseValues();
+  getRandomNumForDay();
+});
 
+function setBaseValues() {
+  monBase = Number(monMinInput.value) + Number(monMinInput.value) * 0.1;
+  tueBase = Number(tueMinInput.value) + Number(tueMinInput.value) * 0.1;
+  wedBase = Number(wedMinInput.value) + Number(wedMinInput.value) * 0.1;
+  thuBase = Number(thuMinInput.value) + Number(thuMinInput.value) * 0.1;
+  friBase = Number(friMinInput.value) + Number(friMinInput.value) * 0.2;
+  satBase = Number(satMinInput.value) + Number(satMinInput.value) * 0.1;
+}
 
-const getRandomNumForDay = ()=>{
-    let a = Number(monMin.value)+(Number(monMin.value)*0.15);
-    let b = Number(tueMin.value)+(Number(tueMin.value)*0.15);
-    let c = Number(wedMin.value)+(Number(wedMin.value)*0.15);
-    let d = Number(thuMin.value)+(Number(thuMin.value)*0.15);
-    let e = Number(friMin.value)+(Number(friMin.value)*0.15);
-    let f = Number(satMin.value)+(Number(satMin.value)*0.15);
+const getRandomNumForDay = () => {
+  let monRandom;
+  let tueRandom;
+  let wedRandom;
+  let thuRandom;
+  let friRandom;
+  let satRandom;
 
-    let aa;
-    let bb;
-    let cc;
-    let dd;
-    let ee;
-    let ff;
+  let targetVal = Number(target.value);
 
+  let isMatch = false;
 
-    let targetVal = Number(target.value);
+  let control = 1;
+  let sum = 0;
 
-    let isMatch  = false;
+  while (!isMatch) {
+    monRandom = monBase + getRandomIntInclusive(10, 60);
+    tueRandom = tueBase + getRandomIntInclusive(10, 60);
+    wedRandom = wedBase + getRandomIntInclusive(10, 60);
+    thuRandom = thuBase + getRandomIntInclusive(10, 60);
+    friRandom = friBase + getRandomIntInclusive(20, 60);
+    satRandom = satBase + getRandomIntInclusive(10, 60);
 
-    let control = 1;
+    let daysArray = [
+      monRandom,
+      tueRandom,
+      wedRandom,
+      thuRandom,
+      friRandom,
+      satRandom,
+    ];
 
-    console.log(a + getRandomIntInclusive(10, 40));
+    sum = daysArray.reduce((total, currentValue) => {
+      return total + currentValue;
+    }, 0);
 
-    while(!isMatch){
-        aa = a+getRandomIntInclusive(10, 40);
-        bb = b+getRandomIntInclusive(10, 40);
-        cc = c+getRandomIntInclusive(10, 40);
-        dd = d+getRandomIntInclusive(10, 50);
-        ee = e+getRandomIntInclusive(10, 80);
-        ff = f+getRandomIntInclusive(10, 50);
-
-        console.log(control);
-
-        if(aa+bb+cc+dd+ee+ff === targetVal){
-            isMatch = true
-        }
-
-        if(control > 8000){
-            break;
-        }
-
-        control++;
+    if (sum === targetVal) {
+      isMatch = true;
     }
 
-    console.log(aa+bb+cc+dd+ee+ff);
-    /* if(isMatch)  */printResults(aa,bb,cc,dd,ee,ff);
+    if (control > 2000000) {
+      break;
+    }
 
-}
-
-function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+    control++;
   }
 
-function printResults(mon, tue, wed, thu, fri, sat){
-    let results = [...document.querySelectorAll('.result')];
-    results.forEach((el, i) =>{
-        el.textContent = arguments[i];
-    } )
+  console.log(sum);
+  console.log("Took: ", control, " goes");
+
+  if (isMatch) {
+    printResults(
+      monRandom,
+      tueRandom,
+      wedRandom,
+      thuRandom,
+      friRandom,
+      satRandom
+    );
+  }
+};
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
 }
 
+function printResults(mon, tue, wed, thu, fri, sat) {
+  let results = [...document.querySelectorAll(".result")];
+  results.forEach((el, i) => {
+    el.textContent = "";
+    el.textContent = arguments[i];
+  });
+}
