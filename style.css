@@ -3,6 +3,14 @@
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+
+  height: 100vh;
+  background-color: #2f2f2f;
+}
+
 .container {
   background-color: #c2bebe;
 
@@ -10,6 +18,8 @@
   display: grid;
   grid-template: repeat(8, 50px) / 0.8fr 1fr 0.8fr;
   align-items: center;
+
+  margin-top: 10vh;
 
   padding: 10px;
   border-radius: 10px;
@@ -62,6 +72,11 @@ button {
   border: none;
   border-radius: 10px;
   font-size: large;
+}
+
+button:hover,
+button:focus {
+  outline: 1px solid orange;
 }
 
 input::-webkit-outer-spin-button,

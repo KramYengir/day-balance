@@ -23,12 +23,12 @@ form.addEventListener("submit", (e) => {
 });
 
 function setBaseValues() {
-  monBase = Number(monMinInput.value) + Number(monMinInput.value) * 0.1;
-  tueBase = Number(tueMinInput.value) + Number(tueMinInput.value) * 0.1;
-  wedBase = Number(wedMinInput.value) + Number(wedMinInput.value) * 0.1;
-  thuBase = Number(thuMinInput.value) + Number(thuMinInput.value) * 0.1;
+  monBase = Number(monMinInput.value) + Number(monMinInput.value) * 0.18;
+  tueBase = Number(tueMinInput.value) + Number(tueMinInput.value) * 0.18;
+  wedBase = Number(wedMinInput.value) + Number(wedMinInput.value) * 0.18;
+  thuBase = Number(thuMinInput.value) + Number(thuMinInput.value) * 0.18;
   friBase = Number(friMinInput.value) + Number(friMinInput.value) * 0.2;
-  satBase = Number(satMinInput.value) + Number(satMinInput.value) * 0.1;
+  satBase = Number(satMinInput.value) + Number(satMinInput.value) * 0.18;
 }
 
 const getRandomNumForDay = () => {
@@ -47,12 +47,12 @@ const getRandomNumForDay = () => {
   let sum = 0;
 
   while (!isMatch) {
-    monRandom = monBase + getRandomIntInclusive(10, 60);
-    tueRandom = tueBase + getRandomIntInclusive(10, 60);
-    wedRandom = wedBase + getRandomIntInclusive(10, 60);
-    thuRandom = thuBase + getRandomIntInclusive(10, 60);
-    friRandom = friBase + getRandomIntInclusive(20, 60);
-    satRandom = satBase + getRandomIntInclusive(10, 60);
+    monRandom = monBase + getRandomIntInclusive(50, 100);
+    tueRandom = tueBase + getRandomIntInclusive(50, 100);
+    wedRandom = wedBase + getRandomIntInclusive(50, 100);
+    thuRandom = thuBase + getRandomIntInclusive(50, 100);
+    friRandom = friBase + getRandomIntInclusive(50, 200);
+    satRandom = satBase + getRandomIntInclusive(50, 100);
 
     let daysArray = [
       monRandom,
@@ -96,7 +96,10 @@ const getRandomNumForDay = () => {
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+
+  let result = Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+
+  return Math.round(result * 100) / 100;
 }
 
 function printResults(mon, tue, wed, thu, fri, sat) {
