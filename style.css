@@ -1,56 +1,76 @@
-*{
-    margin: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.container{
-    background-color: #f0c7c7;
-    border: 1px solid black;
-    
+.container {
+  background-color: #c2bebe;
 
-    max-width: 400px;
-    display: grid;
-    grid-template: repeat(8, 50px) / 0.5fr 1fr 1fr;
-    justify-content: center;
-    align-items: center;
+  width: min(400px, 100vw);
+  display: grid;
+  grid-template: repeat(8, 50px) / 0.8fr 1fr 0.8fr;
+  align-items: center;
+
+  padding: 10px;
+  border-radius: 10px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-input{
-    max-width: 6rem;
-    height: 2rem;
-    padding-left: 0.5rem;
+input {
+  max-width: 6rem;
+  height: 2.5rem;
+  padding-left: 0.5rem;
+  border-radius: 10px;
+
+  font-size: 16px;
 }
 
-.heading{
-    border: 1px solid black;
-    height: 1.5rem;
-    text-align: center;
+.heading {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid black;
+  height: 2rem;
+  text-align: center;
+
+  font-size: 16px;
+  text-transform: uppercase;
 }
 
-.day{
-    text-align: center;
+.day {
+  text-align: center;
+  text-transform: uppercase;
 }
 
-.range{
-    justify-self: center;
+.range {
+  justify-self: center;
+  border: none;
+  outline: none;
 }
 
-.target{
-    grid-column: 2/3;
-    justify-self: center;
+.target {
+  grid-column: 2/3;
+  justify-self: center;
 }
 
-#target{
-    max-width: 8rem;
+#target {
+  max-width: 6rem;
+}
+
+button {
+  height: 2rem;
+  border: none;
+  border-radius: 10px;
+  font-size: large;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-input[type=number] {
-    -moz-appearance:textfield; /* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
 }
