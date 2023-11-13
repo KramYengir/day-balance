@@ -1,14 +1,17 @@
 * {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  display: flex;
+  display: grid;
   justify-content: center;
 
   height: 100vh;
   background-color: #2f2f2f;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -58,6 +61,13 @@ input {
   outline: none;
 }
 
+.result {
+  color: rgb(31, 31, 31);
+  font-size: 20px;
+  font-weight: 600;
+  padding: 5px;
+}
+
 .target {
   grid-column: 2/3;
   justify-self: center;
@@ -68,15 +78,27 @@ input {
 }
 
 button {
-  height: 2rem;
+  padding: 5px 0;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #04aa6d;
   border: none;
-  border-radius: 10px;
-  font-size: large;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  transition: 0.2s all;
 }
 
-button:hover,
-button:focus {
-  outline: 1px solid orange;
+button:hover {
+  background-color: #3e8e41;
+}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
 input::-webkit-outer-spin-button,
@@ -88,4 +110,22 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
+}
+
+.info-msg {
+  font-size: 26px;
+  font-weight: 700;
+  color: red;
+  text-align: center;
+  margin-top: -10vh;
+}
+
+.info-msg.success h2 {
+  text-transform: uppercase;
+  color: green;
+}
+.info-msg.success p {
+  color: white;
+  font-size: 18px;
+  text-align: center;
 }
