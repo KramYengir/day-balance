@@ -1,6 +1,8 @@
 const form = document.querySelector("form");
 const goButton = document.querySelector("button");
 
+const loopAmount = 5000000;
+
 let monMinInput = document.getElementById("mon-min");
 let tueMinInput = document.getElementById("tue-min");
 let wedMinInput = document.getElementById("wed-min");
@@ -29,12 +31,12 @@ form.addEventListener("submit", (e) => {
 });
 
 function setRandomDayValues() {
-  monBase = increaseByRandomPercentage(Number(monMinInput.value), 15, 18);
-  tueBase = increaseByRandomPercentage(Number(tueMinInput.value), 15, 18);
-  wedBase = increaseByRandomPercentage(Number(wedMinInput.value), 15, 20);
-  thuBase = increaseByRandomPercentage(Number(thuMinInput.value), 15, 20);
-  friBase = increaseByRandomPercentage(Number(friMinInput.value), 15, 22);
-  satBase = increaseByRandomPercentage(Number(satMinInput.value), 15, 20);
+  monBase = increaseByRandomPercentage(Number(monMinInput.value), 14, 26);
+  tueBase = increaseByRandomPercentage(Number(tueMinInput.value), 15, 24);
+  wedBase = increaseByRandomPercentage(Number(wedMinInput.value), 15, 28);
+  thuBase = increaseByRandomPercentage(Number(thuMinInput.value), 15, 26);
+  friBase = increaseByRandomPercentage(Number(friMinInput.value), 14, 20);
+  satBase = increaseByRandomPercentage(Number(satMinInput.value), 16, 20);
 
   //console.log(monBase);
 }
@@ -79,7 +81,7 @@ const getRandomNumForDay = () => {
       overOrUnder = offset > 0 ? "over" : "under";
     }
 
-    if (control > 1000000) {
+    if (control > loopAmount) {
       break;
     }
 
@@ -100,10 +102,10 @@ const getRandomNumForDay = () => {
     infoMsgText.textContent = "";
   }
 
-  printResults(monBase, tueBase, wedBase, thuBase, friBase, satBase);
+  printResults(monBase, tueBase, wedBase, thuBase, friBase, satBase, sum);
 };
 
-function printResults(mon, tue, wed, thu, fri, sat) {
+function printResults(mon, tue, wed, thu, fri, sat, sum) {
   let results = [...document.querySelectorAll(".result")];
   results.forEach((el, i) => {
     el.textContent = "";
