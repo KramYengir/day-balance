@@ -41,15 +41,17 @@ function getNewDayValues() {
 
   let diff = target - daysSum;
 
-  newDayValues[0] = Math.round((dayValues[0] + diff * 0.11) * 10) / 10;
+  newDayValues[0] = Math.round((dayValues[0] + diff * 0.1) * 10) / 10;
   newDayValues[1] = Math.round((dayValues[1] + diff * 0.12) * 10) / 10;
-  newDayValues[2] = Math.round((dayValues[2] + diff * 0.14) * 10) / 10;
-  newDayValues[3] = Math.round((dayValues[3] + diff * 0.19) * 10) / 10;
-  newDayValues[4] = Math.round((dayValues[4] + diff * 0.26) * 10) / 10;
-  newDayValues[5] = Math.round((dayValues[5] + diff * 0.19) * 10) / 10;
+  newDayValues[2] = Math.round((dayValues[2] + diff * 0.15) * 10) / 10;
+  newDayValues[3] = Math.round((dayValues[3] + diff * 0.18) * 10) / 10;
+  newDayValues[4] = Math.round((dayValues[4] + diff * 0.262) * 10) / 10;
+  newDayValues[5] = Math.round((dayValues[5] + diff * 0.2) * 10) / 10;
 
   newTotal = newDayValues.reduce((total, value) => total + value, 0);
   console.table(newDayValues);
+
+  newTotal = Math.round(newTotal * 10) / 10;
 
   console.log("NewTotal ", newTotal);
 }
@@ -59,10 +61,15 @@ function setResults() {
   results[6] = newTotal;
 }
 
+let myformat = new Intl.NumberFormat("en-UK", {
+  minimumIntegerDigits: 3,
+  minimumFractionDigits: 2,
+});
+
 function printResults() {
   let resultsOutput = [...document.querySelectorAll(".result")];
   resultsOutput.forEach((el, i) => {
     el.textContent = "";
-    el.textContent = results[i];
+    el.textContent = myformat.format(results[i]);
   });
 }
