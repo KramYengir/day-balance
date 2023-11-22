@@ -55,7 +55,7 @@ input {
   text-transform: uppercase;
 }
 
-.range {
+.day-input {
   justify-self: center;
   border: none;
   outline: none;

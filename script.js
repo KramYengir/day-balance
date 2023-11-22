@@ -14,101 +14,55 @@ let infoMsg = document.querySelector(".info-msg");
 let infoMsgHeading = document.querySelector(".info-msg > h2");
 let infoMsgText = document.querySelector(".info-msg > p");
 
-let wedBase;
-let monBase;
-let tueBase;
-let thuBase;
-let friBase;
-let satBase;
-
-let offset;
-let overOrUnder;
+let dayValues = [];
+let newDayValues = [];
+let newTotal;
+let results = [];
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  setRandomDayValues();
-  getRandomNumForDay();
+  getDayValues();
+  getNewDayValues();
+  setResults();
+  printResults();
 });
 
-function setRandomDayValues() {
-  monBase = increaseByRandomPercentage(Number(monMinInput.value), 14, 26);
-  tueBase = increaseByRandomPercentage(Number(tueMinInput.value), 15, 24);
-  wedBase = increaseByRandomPercentage(Number(wedMinInput.value), 15, 28);
-  thuBase = increaseByRandomPercentage(Number(thuMinInput.value), 15, 26);
-  friBase = increaseByRandomPercentage(Number(friMinInput.value), 14, 20);
-  satBase = increaseByRandomPercentage(Number(satMinInput.value), 16, 20);
-
-  //console.log(monBase);
-}
-function increaseByRandomPercentage(number, lowPercent, highPercent) {
-  // Generate a random percentage between lowPercent and highPercent
-  var randomPercentage =
-    Math.random() * (highPercent - lowPercent) + lowPercent;
-
-  // Round off to two decimal places and convert back to a number
-  randomPercentage = parseFloat(randomPercentage.toFixed(2));
-
-  // Calculate the increase
-  var increase = Number((randomPercentage / 100) * number);
-  increase = parseFloat(increase.toFixed(1));
-
-  // Return the increased number
-  return number + increase;
+function getDayValues() {
+  let days = [...document.querySelectorAll(".day-input > input")];
+  days.forEach((day, i) => {
+    dayValues[i] = Number(day.value);
+  });
 }
 
-const getRandomNumForDay = () => {
-  let targetVal = Number(target.value);
+function getNewDayValues() {
+  let target = targetInput.value;
 
-  let isMatch = false;
+  let daysSum = dayValues.reduce((total, value) => total + value, 0);
 
-  let control = 1;
-  let sum = 0;
+  let diff = target - daysSum;
 
-  while (!isMatch) {
-    let daysArray = [monBase, tueBase, wedBase, thuBase, friBase, satBase];
+  newDayValues[0] = Math.round((dayValues[0] + diff * 0.11) * 10) / 10;
+  newDayValues[1] = Math.round((dayValues[1] + diff * 0.12) * 10) / 10;
+  newDayValues[2] = Math.round((dayValues[2] + diff * 0.14) * 10) / 10;
+  newDayValues[3] = Math.round((dayValues[3] + diff * 0.19) * 10) / 10;
+  newDayValues[4] = Math.round((dayValues[4] + diff * 0.26) * 10) / 10;
+  newDayValues[5] = Math.round((dayValues[5] + diff * 0.19) * 10) / 10;
 
-    sum = daysArray.reduce((total, currentValue) => {
-      return total + currentValue;
-    }, 0);
+  newTotal = newDayValues.reduce((total, value) => total + value, 0);
+  console.table(newDayValues);
 
-    sum = parseFloat(sum.toFixed(2));
+  console.log("NewTotal ", newTotal);
+}
 
-    // if is within 20...
-    if (sum >= targetVal - 10 && sum <= targetVal + 10) {
-      isMatch = true;
-      offset = sum - targetVal;
-      offset = parseFloat(offset.toFixed(2));
-      overOrUnder = offset > 0 ? "over" : "under";
-    }
+function setResults() {
+  newDayValues.forEach((value, i) => (results[i] = value));
+  results[6] = newTotal;
+}
 
-    if (control > loopAmount) {
-      break;
-    }
-
-    control++;
-  }
-
-  console.log(sum);
-  console.log("Monday ", monBase);
-  console.log("Took: ", control, " goes");
-
-  if (isMatch) {
-    infoMsgHeading.textContent = "Success";
-    infoMsg.classList.add("success");
-    infoMsgText.textContent = `Result: ${sum}. Just ${offset} ${overOrUnder}`;
-  } else {
-    infoMsgHeading.textContent = "Try Again";
-    infoMsg.classList.remove("success");
-    infoMsgText.textContent = "";
-  }
-
-  printResults(monBase, tueBase, wedBase, thuBase, friBase, satBase, sum);
-};
-
-function printResults(mon, tue, wed, thu, fri, sat, sum) {
-  let results = [...document.querySelectorAll(".result")];
-  results.forEach((el, i) => {
+function printResults() {
+  let resultsOutput = [...document.querySelectorAll(".result")];
+  resultsOutput.forEach((el, i) => {
     el.textContent = "";
-    el.textContent = arguments[i];
+    el.textContent = results[i];
   });
 }
